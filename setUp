@@ -1,0 +1,32 @@
+package sample;
+import javafx.scene.control.TextField;
+
+
+/**
+ * Created by markus.henriksen on 14-12-2015.
+ */
+public class setUp {
+
+
+    public static int IsInt(TextField input) {
+        try {
+            int number = Integer.parseInt(input.getText());
+            return number;
+
+        } catch (NumberFormatException e) {
+            AlertBox.display("Warning!", "You did not enter a valid number! - try again");
+            return 0;
+        }
+    }
+    public static double IsDouble(TextField input) {
+        try{
+            double number = Double.parseDouble(input.getText());
+            return number;
+            
+        } catch(NumberFormatException e) {
+            AlertBox.display("Warning!", "You did not enter a valid number! - try again");
+
+            return 0;
+        }
+    }
+}
