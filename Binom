@@ -1,0 +1,78 @@
+package sample;
+
+
+/**
+ * Created by markus.henriksen on 13-12-2015.
+ */
+public class Binom {
+
+    public static double dbinom(double t, double size, double p) {
+      double result = factorial(size)/(factorial(t)*factorial(size-t))*(Math.pow(p,t))*Math.pow((1-p),(size-t));
+
+        return result;
+    }
+
+    public static double pbinom(double t, double size, double p) {
+        double result = 0;
+
+        for (int i = 0; i <= t; i++) {
+            result += dbinom(i,size,p);
+        }
+
+        return result;
+    }
+
+        public static double factorial(double n) {
+            double fact = 1; // this  will be the result
+            for (int i = 1; i <= n; i++) {
+                fact *= i;
+            }
+            return fact;
+        }
+
+    public static double SmallestT(int rp, int wp, double size) {
+        double t = 0;
+        double x = t*rp - wp*(size-t);
+
+        while(x < 1) {
+            t++;
+            x = t*rp - wp*(size-t);
+        }
+
+        return t;
+    }
+
+    public static double Getx(int rp, int wp, double size) {
+        double t = 0;
+        double x = t*rp - wp*(size-t);
+
+        while(x < 1) {
+            t++;
+            x = t*rp - wp*(size-t);
+        }
+
+        return x;
+    }
+
+    public static double GetResult(double size, double p, int rp, int wp){
+        double result = 0;
+        p = 1/p;
+        double t = SmallestT(rp,wp,size);
+        if(size == 1) {
+            result = 100*dbinom(t,size,p);
+        } else if(size > 1) {
+            result = 100*(1-pbinom(t-1,size,p));
+        }
+
+        return round(result,2);
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
+}
