@@ -47,6 +47,7 @@ public class Main extends Application {
 
 
         int c = 15;
+        int k = 30;
         // position of Labels and textfields
         GridPane.setConstraints(sizeLabel, 4, 3+c);
         GridPane.setConstraints(Question,4,4+c);
@@ -60,14 +61,14 @@ public class Main extends Application {
         GridPane.setConstraints(wpLabel,8,30+c);
         GridPane.setConstraints(wrongpoints,8,31+c);
 
-        GridPane.setConstraints(answerPercentage,4,81);
-        GridPane.setConstraints(resultPercentage,4,82);
+        GridPane.setConstraints(answerPercentage,4,81+k);
+        GridPane.setConstraints(resultPercentage,4,82+k);
 
-        GridPane.setConstraints(minSurplus,8,81);
-        GridPane.setConstraints(resultSurplus,8,82);
+        GridPane.setConstraints(minSurplus,8,81+k);
+        GridPane.setConstraints(resultSurplus,8,82+k);
 
         // position of confirm button
-        GridPane.setConstraints(ConfirmButton,5,80);
+        GridPane.setConstraints(ConfirmButton,5,80+k);
 
         // Proporties for textfields
         Question.setMaxWidth(40);
@@ -92,7 +93,7 @@ public class Main extends Application {
             int wp = setUp.IsInt(wrongpoints);
             double t = Binom.SmallestT(rp, wp, n);
 
-            if(n == 0 || p == 0 || rp == 0 || wp == 0 ) {
+            if(n == 0 || p == 0 || rp == 0) {
                 resultPercentage.setText("####");
                 resultSurplus.setText("####");
             } else {
