@@ -1,0 +1,120 @@
+package sample;
+
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+    Stage window;
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+
+
+
+        // adding layout
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(10,10,10,10));
+        grid.setVgap(1);
+        grid.setHgap(5);
+
+
+        // Adding buttons
+        Button ConfirmButton = new Button("Get Result");
+
+
+        //Labels for textfields
+        Label sizeLabel = new Label("Questions");
+        Label rpLabel = new Label("Right points");
+        Label wpLabel = new Label("Wrong points");
+        Label choiceLabel = new Label("Choice");
+        Label answerPercentage = new Label("Percentage");
+        Label minSurplus = new Label("Min. surplus");
+        Label resultPercentage = new Label();
+        Label resultSurplus = new Label();
+
+        //Textfields
+        TextField Question = new TextField();
+        TextField choice = new TextField();
+        TextField rightpoints = new TextField();
+        TextField wrongpoints = new TextField();
+
+
+        int c = 15;
+        // position of Labels and textfields
+        GridPane.setConstraints(sizeLabel, 4, 3+c);
+        GridPane.setConstraints(Question,4,4+c);
+
+        GridPane.setConstraints(choiceLabel,8,3+c);
+        GridPane.setConstraints(choice,8,4+c);
+
+        GridPane.setConstraints(rpLabel,4,30+c);
+        GridPane.setConstraints(rightpoints,4,31+c);
+
+        GridPane.setConstraints(wpLabel,8,30+c);
+        GridPane.setConstraints(wrongpoints,8,31+c);
+
+        GridPane.setConstraints(answerPercentage,4,81);
+        GridPane.setConstraints(resultPercentage,4,82);
+
+        GridPane.setConstraints(minSurplus,8,81);
+        GridPane.setConstraints(resultSurplus,8,82);
+
+        // position of confirm button
+        GridPane.setConstraints(ConfirmButton,5,80);
+
+        // Proporties for textfields
+        Question.setMaxWidth(40);
+        rightpoints.setMaxWidth(40);
+        wrongpoints.setMaxWidth(40);
+        choice.setMaxWidth(40);
+
+
+        grid.getChildren().addAll(sizeLabel,Question,choice,choiceLabel,wpLabel,wrongpoints,rightpoints,rpLabel,ConfirmButton, answerPercentage,resultPercentage,minSurplus,resultSurplus);
+
+
+
+
+        window = primaryStage;
+
+        // button actions
+
+        ConfirmButton.setOnAction(e -> {
+            double n = setUp.IsDouble(Question);
+            double p = setUp.IsDouble(choice);
+            int rp = setUp.IsInt(rightpoints);
+            int wp = setUp.IsInt(wrongpoints);
+            double t = Binom.SmallestT(rp, wp, n);
+
+            if(n == 0 || p == 0 || rp == 0 || wp == 0 ) {
+                resultPercentage.setText("####");
+                resultSurplus.setText("####");
+            } else {
+                resultPercentage.setText("" + Binom.GetResult(n, p, rp, wp) + "%");
+                resultSurplus.setText("" + (int) Binom.Getx(rp, wp, n));
+            }
+        });
+
+        window.setTitle("The Guessing Game");
+
+        Scene scene = new Scene(grid, 300,375);
+            window.setScene(scene);
+            window.show();
+
+
+
+
+    }
+
+
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
